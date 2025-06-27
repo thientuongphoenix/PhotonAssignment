@@ -1594,6 +1594,7 @@ GameObject:
   - component: {fileID: 7467505139703997643}
   - component: {fileID: 7530263311971638194}
   - component: {fileID: 2215384776429802137}
+  - component: {fileID: 150586693130982101}
   m_Layer: 0
   m_Name: Player_PA
   m_TagString: Untagged
@@ -1658,6 +1659,26 @@ MonoBehaviour:
   _characterController: {fileID: 7530263311971638194}
   _moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _speed: 2
+  _lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _rotationSpeed: 45
+--- !u!114 &150586693130982101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716352343166749002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 4288036735
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &6737768653011453255
 GameObject:
   m_ObjectHideFlags: 0
