@@ -17,6 +17,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     [SerializeField] private Animator _anim;
 
     [SerializeField] private InputActionReference _lookInput;
+    [SerializeField] private Transform _cameraTransform;
 
     // private bool _isJump;
     private float _rotateX;
@@ -62,6 +63,16 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
         {
             _rotateX += lookValues.x * _rotateSpeed * Runner.DeltaTime;
         }
+
+        if (Velocity.magnitude > 0.1f)
+        {
+            Vector3 lookDir = new Vector3(Velocity.x, 0, Velocity.z);
+            if (lookDir.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, _rotateSpeed * Time.deltaTime);
+            }
+        }
     }
 
     public override void FixedUpdateNetwork()
@@ -86,8 +97,15 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     private Vector3 GetMoveDirection()
     {
         var inputValues = _moveInput.action.ReadValue<Vector2>();
-        Vector3 direction = new Vector3(inputValues.x, 0, inputValues.y);
-        return direction.normalized;
+        if (_cameraTransform == null) return Vector3.zero;
+        Vector3 camForward = _cameraTransform.forward;
+        Vector3 camRight = _cameraTransform.right;
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+        Vector3 move = camForward * inputValues.y + camRight * inputValues.x;
+        return move.normalized;
     }
 
     private void NetworkUpdateRotation()
