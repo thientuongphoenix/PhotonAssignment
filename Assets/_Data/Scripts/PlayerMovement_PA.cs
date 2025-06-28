@@ -1,6 +1,7 @@
 using Fusion;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerMovement_PA : NetworkBehaviour, ISpawned
 {
@@ -9,11 +10,11 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     [SerializeField] private InputActionReference _moveInput;
     [SerializeField] private InputActionReference _sprintInput;
     [SerializeField] private InputActionReference _jumpInput;
-    //[FormerlySerializedAs("_speed")]
+    [FormerlySerializedAs("_speed")]
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _rotateSpeed;
-    //[SerializeField] private Animator _anim;
+    [SerializeField] private Animator _anim;
 
     [SerializeField] private InputActionReference _lookInput;
 
@@ -25,7 +26,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
 
     private void OnVelocityChanged()
     {
-        //_anim.SetFloat("Speed", Velocity.magnitude);
+        _anim.SetFloat("Speed", Velocity.magnitude);
     }
 
     public override void Spawned()
