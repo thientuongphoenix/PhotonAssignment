@@ -57,7 +57,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
         }
 
         var lookValues = _lookInput.action.ReadValue<Vector2>();
-        _rotateX += lookValues.x * _rotateSpeed * Time.deltaTime;
+        _rotateX += lookValues.x * _rotateSpeed * Runner.DeltaTime;
     }
 
     public override void FixedUpdateNetwork()
