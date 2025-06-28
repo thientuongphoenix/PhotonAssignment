@@ -9,7 +9,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     [SerializeField] private NetworkCharacterController _networkController;
     [SerializeField] private InputActionReference _moveInput;
     [SerializeField] private InputActionReference _sprintInput;
-    [SerializeField] private InputActionReference _jumpInput;
+    //[SerializeField] private InputActionReference _jumpInput;
     [FormerlySerializedAs("_speed")]
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _sprintSpeed;
@@ -18,7 +18,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
 
     [SerializeField] private InputActionReference _lookInput;
 
-    private bool _isJump;
+    // private bool _isJump;
     private float _rotateX;
 
     [Networked, OnChangedRender(nameof(OnVelocityChanged))]
@@ -52,13 +52,16 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
             Velocity *= _walkSpeed;
         }
 
-        if (_jumpInput.action.triggered)
-        {
-            _isJump = true;
-        }
+        // if (_jumpInput.action.triggered)
+        // {
+        //     _isJump = true;
+        // }
 
         var lookValues = _lookInput.action.ReadValue<Vector2>();
-        _rotateX += lookValues.x * _rotateSpeed * Runner.DeltaTime;
+        if (Mathf.Abs(lookValues.x) > 0.01f)
+        {
+            _rotateX += lookValues.x * _rotateSpeed * Runner.DeltaTime;
+        }
     }
 
     public override void FixedUpdateNetwork()
@@ -73,23 +76,26 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     private void NetworkUpdateMovement()
     {
         _networkController.Move(Velocity);
-        if (_isJump)
-        {
-            _networkController.Jump();
-            _isJump = false;
-        }
+        // if (_isJump)
+        // {
+        //     _networkController.Jump();
+        //     _isJump = false;
+        // }
     }
 
     private Vector3 GetMoveDirection()
     {
         var inputValues = _moveInput.action.ReadValue<Vector2>();
-        var direction = transform.forward * inputValues.y + transform.right * inputValues.x;
+        Vector3 direction = new Vector3(inputValues.x, 0, inputValues.y);
         return direction.normalized;
     }
 
     private void NetworkUpdateRotation()
     {
-        transform.Rotate(0, _rotateX, 0);
+        if (Mathf.Abs(_rotateX) > 0.01f)
+        {
+            transform.Rotate(0, _rotateX, 0);
+        }
         _rotateX = 0;
     }
 }
