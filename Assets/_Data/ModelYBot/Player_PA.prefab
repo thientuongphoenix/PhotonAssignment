@@ -1595,8 +1595,9 @@ GameObject:
   - component: {fileID: 7530263311971638194}
   - component: {fileID: 2215384776429802137}
   - component: {fileID: 150586693130982101}
-  - component: {fileID: 2647041081337355431}
+  - component: {fileID: 3029541125963385943}
   - component: {fileID: 157568992227467167}
+  - component: {fileID: 8539929760763754583}
   m_Layer: 0
   m_Name: Player_PA
   m_TagString: Untagged
@@ -1659,10 +1660,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 7530263311971638194}
+  _networkController: {fileID: 3029541125963385943}
   _moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  _speed: 2
+  _sprintInput: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _jumpInput: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _walkSpeed: 2
+  _sprintSpeed: 3
+  _rotateSpeed: 2
   _lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  _rotationSpeed: 45
 --- !u!114 &150586693130982101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,10 +1685,12 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2647041081337355431}
+  - {fileID: 2215384776429802137}
+  - {fileID: 3029541125963385943}
   - {fileID: 157568992227467167}
+  - {fileID: 8539929760763754583}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &2647041081337355431
+--- !u!114 &3029541125963385943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1692,14 +1699,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6716352343166749002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: 378411a89480da345945c2f888327a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 0
-  SyncParent: 0
-  _autoAOIOverride: 1
-  DisableSharedModeInterpolation: 0
+  gravity: -20
+  jumpImpulse: 8
+  acceleration: 10
+  braking: 10
+  maxSpeed: 2
+  rotationSpeed: 15
 --- !u!114 &157568992227467167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,6 +1723,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bodyRenderer: {fileID: 4096398653193811872}
   _NetworkedColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &8539929760763754583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716352343166749002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07f48913125f2b45ac7834bf889c05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCamera: {fileID: 104178209198154320}
 --- !u!1 &6737768653011453255
 GameObject:
   m_ObjectHideFlags: 0
