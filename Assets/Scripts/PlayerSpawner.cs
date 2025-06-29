@@ -13,7 +13,13 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
         {
             int locationIndex = (player.PlayerId - 1) % _spawnPoints.Length;
             var spawnPoint = _spawnPoints[locationIndex];
-            Runner.Spawn(_playerPrefab, spawnPoint.position, spawnPoint.rotation, player);
+            var playerObj = Runner.Spawn(_playerPrefab, spawnPoint.position, spawnPoint.rotation, player);
+            if (playerObj != null && player == Runner.LocalPlayer)
+            {
+                var nameText = playerObj.GetComponentInChildren<PlayerNameText>();
+                if (nameText != null)
+                    nameText.SetPlayerName(player);
+            }
         }
     }
 }
