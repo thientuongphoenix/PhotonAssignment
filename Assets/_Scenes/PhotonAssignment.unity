@@ -395,6 +395,7 @@ MonoBehaviour:
   _spawnPoints:
   - {fileID: 1691592062}
   - {fileID: 250652899}
+  playerID: 
 --- !u!1 &92965817
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Find a way
+  m_text: Find The Flame
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7038,7 +7039,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _winPanel: {fileID: 702417284}
+  _winText: {fileID: 1008561253}
   _IsWin: 0
+  _PlayerIDWin: 
 --- !u!54 &1704834555
 Rigidbody:
   m_ObjectHideFlags: 0

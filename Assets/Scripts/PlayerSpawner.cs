@@ -1,13 +1,16 @@
 using UnityEngine;
 using Fusion;
+using System;
 
 public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private Transform[] _spawnPoints;
+    public string playerID;
 
     public void PlayerJoined(PlayerRef player)
     {
+        playerID = player.PlayerId.ToString();
         print("Player joined: " + player.PlayerId);
         if (player == Runner.LocalPlayer)
         {
