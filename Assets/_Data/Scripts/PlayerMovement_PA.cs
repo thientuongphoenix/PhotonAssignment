@@ -25,9 +25,20 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     [Networked, OnChangedRender(nameof(OnVelocityChanged))]
     private Vector3 Velocity { get; set;}
 
+    [Networked, OnChangedRender(nameof(TwoPlayerJoined))]
+    private bool CanMove { get; set; }
+
     private void OnVelocityChanged()
     {
         _anim.SetFloat("Speed", Velocity.magnitude);
+    }
+
+    private void TwoPlayerJoined()
+    {
+        if (PlayerSpawner.playerCount == 2)
+        {
+            CanMove = true;
+        }
     }
 
     public override void Spawned()
@@ -41,6 +52,14 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     private void Update()
     {
         if (!HasStateAuthority) { return; }
+
+        TwoPlayerJoined();
+
+        if (!CanMove)
+        {
+            Velocity = Vector3.zero;
+            return;
+        }
 
         Velocity = GetMoveDirection();
 
@@ -78,7 +97,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
-
+        TwoPlayerJoined();
         if (!HasStateAuthority) { return; }
         NetworkUpdateMovement();
         NetworkUpdateRotation();

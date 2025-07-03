@@ -1,15 +1,25 @@
 using UnityEngine;
 using Fusion;
 using System;
+using System.Linq;
 
 public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private Transform[] _spawnPoints;
     public string playerID;
+    // Biến đếm số lượng player đã join
+    public static int playerCount = 0;
 
     public void PlayerJoined(PlayerRef player)
     {
+        // Tăng biến đếm mỗi khi có player mới join
+        playerCount++;
+        if (playerCount == 2)
+        {
+            Debug.Log("2 player joined");
+        }
+        Debug.Log($"Số lượng player đã join: {playerCount}");
         playerID = player.PlayerId.ToString();
         print("Player joined: " + player.PlayerId);
         if (player == Runner.LocalPlayer)
@@ -24,5 +34,14 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
                     nameText.SetPlayerName(player);
             }
         }
+
+        // if (Runner.IsServer && Runner.ActivePlayers.Count() == 2)
+        // {
+        //     var allPlayers = FindObjectsOfType<PlayerMovement_PA>();
+        //     foreach (var p in allPlayers)
+        //     {
+        //         p.RpcEnableMovement();
+        //     }
+        // }
     }
 }
