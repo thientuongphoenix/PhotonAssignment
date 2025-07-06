@@ -526,6 +526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkWin: {fileID: 0}
+  playerSpawner: {fileID: 0}
 --- !u!136 &3325568781006584592
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -987,8 +988,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2002,12 +2003,14 @@ MonoBehaviour:
   _networkController: {fileID: 3029541125963385943}
   _moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _sprintInput: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  _walkSpeed: 3
-  _sprintSpeed: 6
+  _walkSpeed: 2
+  _sprintSpeed: 4
   _rotateSpeed: 2
   _anim: {fileID: 6899172342371132137}
   _lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _cameraTransform: {fileID: 7766195793179228886}
+  _playerSpawner: {fileID: 0}
+  currentSpeed: 0
 --- !u!114 &150586693130982101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2049,8 +2052,8 @@ MonoBehaviour:
   gravity: -20
   jumpImpulse: 8
   acceleration: 10
-  braking: 10
-  maxSpeed: 2
+  braking: 100
+  maxSpeed: 5
   rotationSpeed: 15
 --- !u!114 &157568992227467167
 MonoBehaviour:

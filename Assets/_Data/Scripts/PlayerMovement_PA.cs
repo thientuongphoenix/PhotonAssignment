@@ -18,6 +18,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
 
     [SerializeField] private InputActionReference _lookInput;
     [SerializeField] private Transform _cameraTransform;
+    [SerializeField] private PlayerSpawner _playerSpawner;
 
     // private bool _isJump;
     private float _rotateX;
@@ -27,6 +28,13 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
 
     [Networked, OnChangedRender(nameof(TwoPlayerJoined))]
     private bool CanMove { get; set; }
+
+    public float currentSpeed;
+
+    private void Start()
+    {
+        _playerSpawner = FindObjectOfType<PlayerSpawner>();
+    }
 
     private void OnVelocityChanged()
     {
@@ -38,6 +46,14 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
         if (PlayerSpawner.playerCount == 2)
         {
             CanMove = true;
+        }
+    }
+
+    private void OnePlayerJoined()
+    {
+        if (PlayerSpawner.playerCount == 1)
+        {
+            _playerSpawner.waitingText.gameObject.SetActive(true);
         }
     }
 
@@ -72,6 +88,9 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
             Velocity *= _walkSpeed;
         }
 
+        currentSpeed = Velocity.magnitude;
+        //Debug.Log($"[PlayerMovement_PA] Current Speed: {currentSpeed}");
+
         // if (_jumpInput.action.triggered)
         // {
         //     _isJump = true;
@@ -92,6 +111,8 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, _rotateSpeed * Time.deltaTime);
             }
         }
+
+        OnePlayerJoined();
     }
 
     public override void FixedUpdateNetwork()

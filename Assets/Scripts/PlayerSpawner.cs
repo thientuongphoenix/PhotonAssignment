@@ -7,10 +7,16 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private Transform[] _spawnPoints;
-    [SerializeField] private TMPro.TextMeshProUGUI waitingText;
+    [SerializeField] public TMPro.TextMeshProUGUI waitingText;
     public string playerID;
     // Biến đếm số lượng player đã join
     public static int playerCount = 0;
+
+    private void Awake()
+    {
+        if (waitingText != null)
+            waitingText.gameObject.SetActive(false);
+    }
 
     public void PlayerJoined(PlayerRef player)
     {
@@ -53,4 +59,6 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
         //     }
         // }
     }
+
+    
 }
