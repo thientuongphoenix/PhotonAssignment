@@ -395,6 +395,7 @@ MonoBehaviour:
   _spawnPoints:
   - {fileID: 1691592062}
   - {fileID: 250652899}
+  waitingText: {fileID: 834241208}
   playerID: 
 --- !u!1 &92965817
 GameObject:
