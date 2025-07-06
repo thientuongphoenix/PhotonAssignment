@@ -8,11 +8,11 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private NetworkCharacterController _networkController;
     [SerializeField] private InputActionReference _moveInput;
-    [SerializeField] private InputActionReference _sprintInput;
+    //[SerializeField] private InputActionReference _sprintInput;
     //[SerializeField] private InputActionReference _jumpInput;
     [FormerlySerializedAs("_speed")]
     [SerializeField] private float _walkSpeed;
-    [SerializeField] private float _sprintSpeed;
+    //[SerializeField] private float _sprintSpeed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private Animator _anim;
 
@@ -29,7 +29,7 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
     [Networked, OnChangedRender(nameof(TwoPlayerJoined))]
     private bool CanMove { get; set; }
 
-    public float currentSpeed;
+    //public float currentSpeed;
 
     private void Start()
     {
@@ -79,16 +79,9 @@ public class PlayerMovement_PA : NetworkBehaviour, ISpawned
 
         Velocity = GetMoveDirection();
 
-        if (_sprintInput.action.IsPressed())
-        {
-            Velocity *= _sprintSpeed;
-        }
-        else
-        {
-            Velocity *= _walkSpeed;
-        }
+        Velocity *= _walkSpeed;
 
-        currentSpeed = Velocity.magnitude;
+        //currentSpeed = Velocity.magnitude;
         //Debug.Log($"[PlayerMovement_PA] Current Speed: {currentSpeed}");
 
         // if (_jumpInput.action.triggered)
